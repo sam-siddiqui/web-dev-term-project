@@ -16,10 +16,19 @@ End to End student and classes management system for a music educational institu
 - Sameer Siddiqui
 - Mohammed Abdullah Sandhu
 - Aparna Pant
-### Modules of the Music Management System:
-- Student Registration
-- Course Management
-- Teacher Scheduling
-- Attendance Tracking
-- Performance Evaluation
-- Communication Channels
+
+## Problem Statement
+The Music School Management Suite is designed to tackle the inefficiencies of traditional music school administration by providing a unified platform for managing all school-related activities.
+
+## Purpose and Scope
+The application will serve as a central hub for managing course registrations, schedules, attendance, performance evaluations, and financial transactions, thereby streamifying operations and improving communication among students, teachers, and administrators.
+
+## Modules of the Music Management System:
+
+1. **Student Registration**
+2. **Course Management**
+3. **Teacher Scheduling**
+4. **Attendance Tracking**
+5. **Performance Evaluation**
+6. **Communication Channels**
+
