@@ -16,3 +16,10 @@ End to End student and classes management system for a music educational institu
 - Sameer Siddiqui
 - Mohammed Abdullah Sandhu
 - Aparna Pant
+### Modules of the Music Management System:
+- Student Registration
+- Course Management
+- Teacher Scheduling
+- Attendance Tracking
+- Performance Evaluation
+- Communication Channels
