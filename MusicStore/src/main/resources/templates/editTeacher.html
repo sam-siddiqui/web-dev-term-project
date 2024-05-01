@@ -1,0 +1,86 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Edit Teacher</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="show_teacher">Teacher</a> <span>&gt;</span>Edit Teacher
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Edit Teacher</h2>
+
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+							<form th:action="@{/saveteacher}" method="post"
+								th:object="${teacher}">
+								<input type="hidden" name="teacher_id"
+									th:value="${teacher.teacher_id}" />
+									
+								<div class="form">
+								<p class="inline-field">
+									<label class="">Name</label> <input name="name" type="text"
+										class="field size1" th:value="${teacher.name}"/>
+								</p>
+								<p class="inline-field">
+									<label class="">Email</label> <input name="email" type="text"
+										class="field size1" th:value="${teacher.email}"/>
+								</p>
+								<p class="inline-field">
+									<label> Phone Number</label> <input name="phone_number"
+										type="text" class="field size1" th:value="${teacher.phone_number}"/>
+								</p>
+								<p class="inline-field">
+									<label>Experties</label> <input name="expertise"
+										type="text" class="field size1" th:value="${teacher.expertise}"/>
+								</p>
+								</div>
+								
+								<div class="buttons">
+								<input type="submit" class="button" value="submit" />
+								</div>
+							</form>
+							</div>
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+					<!-- Box -->
+					
+					<!-- End Box -->
+				</div>
+				<!-- End Content -->
+			
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	<!-- End Container -->
+	<!-- End Container -->
+	<!-- Footer -->
+<div th:insert= "fragments/nav :: footer"></div>
+<!-- End Footer -->
+</body>
+</html>

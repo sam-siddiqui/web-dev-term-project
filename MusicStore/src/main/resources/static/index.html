@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymleaf.org">
+<head th:insert="fragments/customs :: head">
+</head>
+
+<body>
+	<!--start of header-->
+
+	<div th:insert="fragments/customs :: nav"></div>
+
+	<!--end of header-->
+	<!--start of main frame-->
+	<div class="main-frame">
+		<img src="images/main.png" alt="photo" class="main-frame-pic">
+		<div class="main-detil">
+			<p>Hello i'm</p>
+			<h1>Zhao Xiaotong</h1>
+			<h4>Music Teacher (Ms.Music Education)</h4>
+
+			<div class="btn">
+				<button type="submit">Download Music Chord</button>
+				<button type="submit" class="btn-2">More Info</button>
+				<div class="more-info">
+					The dulcimer is an ancient worldwide instrument. <br> Chinese
+					dulcimer has been in circulation and evolved <br> since the
+					late Ming and early Qing dynasties, only a short <br> history
+					of 400 years. She is a beautiful, elegant instrument <br> that
+					has been loved by many music lovers. However, because of her<br>
+					ocalization, there are still many people who have not appreciated <br>
+					her beauty and wonders.
+				</div>
+			</div>
+
+			<div class="social">
+				<i class='bx bxl-github'></i> <i class='bx bxl-instagram'></i>
+			</div>
+		</div>
+	</div>
+	<!--end of main frame-->
+
+	<!-- Our Team -->
+	<section class="team">
+		<h1>Meet Our Team</h1>
+		<div class="team-cards">
+			<div class="card">
+				<div class="card-img">
+					<img src="/images/our-team-1.jpg" alt="Team Member 1">
+				</div>
+				<div class="card-info">
+					<h2 class="card-name">Jane</h2>
+					<p class="card-role">CEO and Founder</p>
+					<p class="card-email">jane@example.com</p>
+					<p>
+						<button type="submit" class="btn">Contact</button>
+					</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-img">
+					<img src="/images/our-team-2.jpg" alt="Team Member 2">
+				</div>
+				<div class="card-info">
+					<h2 class="card-name">Miller</h2>
+					<p class="card-role">Co-Founder</p>
+					<p class="card-email">Miller@example.com</p>
+					<p>
+						<button type="submit" class="btn">Contact</button>
+					</p>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-img">
+					<img src="/images/our-team-3.jpg" alt="Team Member 3">
+				</div>
+				<div class="card-info">
+					<h2 class="card-name">Joe</h2>
+					<p class="card-role">Co-Founder</p>
+					<p class="card-email">Joe@example.com</p>
+					<p>
+						<button type="submit" class="btn">Contact</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Us-->
+	<div class="contact_us">
+		<div class="responsive-container-block big-container">
+			<div class="responsive-container-block container">
+				<form class="form-box">
+					<div class="container-block form-wrapper">
+						<p class="text-blk contactus-head">Get in Touch</p>
+						<p class="text-blk contactus-subhead">We will get back to you
+							soon</p>
+						<div class="responsive-container-block">
+							<div class="input-txt" id="i10mt">
+								<p class="text-blk input-title">FIRST NAME</p>
+								<input class="input" id="first-name" name="FirstName"
+									placeholder="Please enter first name...">
+							</div>
+							<div class="input-txt">
+								<p class="text-blk input-title">LAST NAME</p>
+								<input class="input" id="last-name" name="Last Name"
+									placeholder="Please enter last name...">
+							</div>
+							<div class="input-txt">
+								<p class="text-blk input-title">EMAIL</p>
+								<input class="input" id="e-mail" name="Email"
+									placeholder="Please enter email...">
+							</div>
+							<div class="input-txt">
+								<p class="text-blk input-title">PHONE NUMBER</p>
+								<input class="input" id="phone" name="PhoneNumber"
+									placeholder="Please enter phone number...">
+							</div>
+							<div class="input-txt">
+								<p class="text-blk input-title">WHAT DO YOU HAVE IN MIND</p>
+								<textarea class="textinput" placeholder="Please enter query..."></textarea>
+							</div>
+						</div>
+						<button type="submit" class="submit-btn">Submit</button>
+					</div>
+					<div class="social-media-links">
+						<a href="#"> <img class="link-img"
+							src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-twitter.png">
+						</a> <a href="#"> <img class="link-img"
+							src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-facebook.png">
+						</a> <a href="#"> <img class="link-img"
+							src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-google.png">
+						</a> <a href="#"> <img class="link-img"
+							src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-instagram.png">
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--Piano -->
+
+	<div class="wrapper">
+		<div class="piano">
+			<h2>Practice Piano</h2>
+			<div class="column volume-slider">
+				<span>Volume</span><input type="range" min="0" max="1" value="0.5"
+					step="any">
+			</div>
+			<div class="column keys-checkbox">
+				<span>Show Keys</span><input type="checkbox" checked>
+			</div>
+		</div>
+		<ul class="piano-keys">
+			<li class="key white" data-key="a"><span>a</span></li>
+			<li class="key black" data-key="w"><span>w</span></li>
+			<li class="key white" data-key="s"><span>s</span></li>
+			<li class="key black" data-key="e"><span>e</span></li>
+			<li class="key white" data-key="d"><span>d</span></li>
+			<li class="key white" data-key="f"><span>f</span></li>
+			<li class="key black" data-key="t"><span>t</span></li>
+			<li class="key white" data-key="g"><span>g</span></li>
+			<li class="key black" data-key="y"><span>y</span></li>
+			<li class="key white" data-key="h"><span>h</span></li>
+			<li class="key black" data-key="u"><span>u</span></li>
+			<li class="key white" data-key="j"><span>j</span></li>
+			<li class="key white" data-key="k"><span>k</span></li>
+			<li class="key black" data-key="o"><span>o</span></li>
+			<li class="key white" data-key="l"><span>l</span></li>
+			<li class="key black" data-key="p"><span>p</span></li>
+			<li class="key white" data-key=";"><span>;</span></li>
+		</ul>
+	</div>
+
+	<!-- Footer-->
+	<div th:insert="fragments/customs :: footer"></div>
+</body>
+</html>

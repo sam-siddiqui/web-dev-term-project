@@ -1,0 +1,84 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>SpringTime</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="#">Dashboard</a> <span>&gt;<a href="add_schedule">Add
+						Schedule</a></span>
+			</div>
+			<!-- End Small Nav -->
+
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Current Courses</h2>
+							<div class="right">
+								<label>search articles</label> <input type="text"
+									class="field small-field" /> <input type="submit"
+									class="button" value="search" />
+							</div>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th>ID</th>
+									<th>Teacher</th>
+									<th>Course</th>
+									<th>Class day</th>
+								</tr>
+								<tr th:each="s :${student}">
+									<td th:text="${s.student_id}"></td>
+									<td th:text="${s.Teacher.name}"></td>
+									<td th:text="${s.Course.fees}"></td>
+
+								</tr>
+							</table>
+							<!-- Pagging -->
+							<div class="pagging">
+								<div class="left">Showing 1-12 of 44</div>
+								<div class="right">
+									<a href="#">Previous</a> <a href="#">1</a> <a href="#">2</a> <a
+										href="#">3</a> <a href="#">4</a> <a href="#">245</a> <span>...</span>
+									<a href="#">Next</a> <a href="#">View all</a>
+								</div>
+							</div>
+							<!-- End Pagging -->
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+
+					<!-- End Container -->
+					<!-- Footer -->
+					<div id="footer">
+						<div class="shell">
+							<span class="left">&copy; 2010 - CompanyName</span> <span
+								class="right"> Design by <a
+								href="http://chocotemplates.com">Chocotemplates.com</a>
+							</span>
+						</div>
+					</div>
+					<!-- End Footer -->
+</body>
+</html>

@@ -1,0 +1,110 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Teachers</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="#">Dashboard</a> <span>&gt;<a href="add_teacher">Add
+						Teacher</a>
+			</div>
+			<!-- End Small Nav -->
+
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Current Teachers</h2>
+							<div class="right">
+								<form id="searchForm" action="#" th:action="@{/searchteacher}">
+									<label for="keyword">Search articles:</label> <input
+										type="text" name="keyword" id="keyword" th:value="${keyword}"
+										required />
+								</form>
+							</div>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Phone Number</th>
+									<th>Expertise</th>
+									<th>Actions</th>
+								</tr>
+								<tr th:each="t :${teacher}">
+									<td th:text="${t.teacher_id}"></td>
+									<td th:text="${t.name}"></td>
+									<td th:text="${t.email}"></td>
+									<td th:text="${t.phone_number}"></td>
+									<td th:text="${t.expertise}"></td>
+									<td><a
+										th:href="@{/deleteTeacher/{id}(id=${t.teacher_id})}"><i
+											class="fa-solid fa-trash"></i></a> <a
+										th:href="@{/editTeacher/{id}(id=${t.teacher_id})}"><i
+											class="fa-solid fa-pen-to-square ms-4"></i></a></td>
+								</tr>
+							</table>
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+				</div>
+			</div>
+			<!-- End Container -->
+
+			<div class="cl">&nbsp;</div>
+		</div>
+		<!-- Main -->
+	</div>
+
+
+	<!-- End Container -->
+	<!-- Footer -->
+	<div th:insert="fragments/nav :: footer"></div>
+					<script>
+    // Get the input field
+    var input = document.getElementById("keyword");
+
+    // Add event listener on input event (fires on every keystroke)
+    input.addEventListener("input", function(event) {
+        // Perform search action
+        search();
+    });
+
+    // Function to perform search
+    function search() {
+        var keyword = input.value;
+        // You can perform any search action here using AJAX or other methods
+        // For demonstration purposes, let's just log the search keyword
+        console.log('Searching for: ' + keyword);
+        // You can also update the UI to display search results dynamically
+        // For example:
+        // document.getElementById('searchResults').innerText = 'Searching for: ' + keyword;
+
+        // Submit the form programmatically
+        document.getElementById('searchForm').submit();
+    }
+</script>
+
+</body>
+</html>

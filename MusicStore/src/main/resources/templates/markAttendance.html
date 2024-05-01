@@ -1,0 +1,113 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>SpringTime</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+
+			<div class="small-nav">
+				<a href="dash_board">Dashboard</a>
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Daily Attendance</h2>
+							<div class="right"></div>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+
+						<div class="table">
+							<form id="attendanceForm" th:action="@{/saveattendance}"
+								method="post">
+								<input type="hidden" id="dateField" name="att_date" /> <input
+									type="hidden" id="studentIds" name="studentIds" /> <input
+									type="hidden" id="statuses" name="statuses" />
+								<div th:each="s, iterStat : ${student}">
+									<input type="hidden" name="student_id"
+										th:value="${s.student_id}" /> <input type="hidden"
+										name="schedule_id" th:value="${s.schedule_id}" /> <label>
+										<input type="checkbox" name="present" th:text="${s.name}"
+										value="${s.student_id}" />
+									</label>
+								</div>
+
+								<div class="buttons">
+									<input type="submit" class="button" value="submit" />
+								</div>
+							</form>
+							
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+
+				</div>
+				<!-- End Content -->
+
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+	<script>
+document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    var studentIds = [];
+    var statuses = [];
+    var checkboxes = document.querySelectorAll('input[name="present"]');
+    checkboxes.forEach(function(checkbox) {
+        studentIds.push(checkbox.value);
+        statuses.push(checkbox.checked ? 'present' : 'absent');
+    });
+    document.getElementById('studentIds').value = studentIds.join(',');
+    document.getElementById('statuses').value = statuses.join(',');
+    this.submit(); // Manually submit the form
+});
+
+</script>
+
+	<script>
+var currentDate = new Date();
+
+//Get the components of the current date
+var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Adding 1 because getMonth() returns zero-based months
+var day = ('0' + currentDate.getDate()).slice(-2);
+var year = currentDate.getFullYear();
+
+//Format the date as MM/DD/YYYY
+var formattedDate = month + '/' + day + '/' + year;
+
+//Set the formatted date as the value of the text field
+document.getElementById("dateField").value = formattedDate;
+</script>
+	<!-- End Container -->
+	<!-- Footer -->
+	<div id="footer">
+		<div class="shell">
+			<span class="left">&copy; 2010 - CompanyName</span> <span
+				class="right"> Design by <a href="http://chocotemplates.com">Chocotemplates.com</a>
+			</span>
+		</div>
+	</div>
+	<!-- End Footer -->
+</body>
+</html>

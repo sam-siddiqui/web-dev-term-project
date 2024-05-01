@@ -1,0 +1,170 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Edit Student</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				 <div class="small-nav"> <a href="show_students">Students</a> <span>&gt;</span> Edit Student </div>
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Edit Student</h2>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+							<form th:action="@{/savestudent}" method="post" th:object="${student}">
+								<input type="hidden" name="student_id"
+									th:value="${student.student_id}" />
+								<div class="form">
+									<p class="inline-field">
+										<label for="name">Name</label> <input type="text" id="name"
+											name="name" class="field size1" th:value="${student.name}" />
+									</p>
+									<p class="inline-field">
+										<label for="email">Email</label> <input type="text" id="email"
+											name="email" class="field size1" th:value="${student.email}" />
+									</p>
+									<p class="inline-field">
+										<label for="phone_number">Phone Number</label> <input
+											type="text" id="phone_number" name="phone_number"
+											class="field size1" th:value="${student.phone_number}" />
+									</p>
+									<p class="inline-field">
+										<label for="address">Address</label> <input type="text"
+											id="address" name="address" class="field size1"
+											th:value="${student.address}" />
+									</p>
+									<p class="inline-field">
+										<label for="instrument_preferences">Instrument
+											Preferences</label> <input type="text" id="instrument_preferences"
+											name="instrument_preferences" class="field size1"
+											th:value="${student.instrument_preferences}" />
+									</p>
+									<p class="inline-field">
+										<label for="schedule_id">Schedule</label> <select
+											id="schedule_id" name="schedule_id" class="field size1"
+											onchange="getScheduleDetails()">
+											<option th:value="${student.schedule_id}"></option>
+											<option th:each="sc :${schedule}"
+												th:value="${sc.schedule_id}" th:text="${sc.schedule_name}" th:selected="${sc.schedule_id eq student.schedule_id}">
+											</option>
+										</select>
+									</p>
+
+									<p>
+										<label>Course</label> <input type="text" id="course_name"
+											name="course_name" class="field size1" th:readonly="true" />
+										<input type="text" id="course_id" name="course_id"
+											class="field size1" th:readonly="true" />
+									</p>
+									<p>
+										<label>Start Time</label> <input type="text" id="start_time"
+											name="start_time" class="field size1" th:readonly="true" />
+									</p>
+									<p>
+										<label>End Time</label> <input type="text" id="end_time"
+											name="end_time" class="field size1" th:readonly="true" />
+									</p>
+									<p>
+										<label>Teacher ID</label> <input type="text" id="teacher_name"
+											name="teacher_name" class="field size1" th:readonly="true" />
+										<input type="text" id="teacher_id" name="teacher_id"
+											class="field size1" th:readonly="true" />
+									</p>
+									<p>
+										<label>Class Day</label> <input type="text" id="class_day"
+											name="class_day" class="field size1" th:readonly="true" />
+									</p>
+									<p>
+										<label>Fees</label> <input type="text" id="fees" name="amount"
+											class="field size1" th:readonly="true" />
+									</p>
+								</div>
+								<div class="buttons">
+									<input type="button" class="button" value="preview" /> <input
+										type="submit" class="button" value="submit" />
+								</div>
+							</form>
+
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+					<!-- Box -->
+
+					<!-- End Box -->
+				</div>
+				<!-- End Content -->
+
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+	<!-- End Container -->
+	<!-- Footer -->
+<div th:insert= "fragments/nav :: footer"></div>
+<!-- End Footer -->
+	
+	<script>
+    window.onload = function() {
+        // Call getScheduleDetails function here
+        getScheduleDetails();
+    };
+
+    function getScheduleDetails() {
+        var scheduleId = document.getElementById("schedule_id").value;
+        if (scheduleId === "") {
+            // Clear the content of the text fields
+            document.getElementById("course_id").value = "";
+            document.getElementById("start_time").value = "";
+            document.getElementById("end_time").value = "";
+            document.getElementById("teacher_id").value = "";
+            document.getElementById("class_day").value = "";
+            return; // Exit the function early
+        }
+        // Make AJAX request to fetch schedule details
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getScheduleDetails/" + scheduleId);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var scheduleDetails = JSON.parse(xhr.responseText);
+
+                // Update text fields with schedule details
+                document.getElementById("course_id").value = scheduleDetails.course_id;
+                document.getElementById("course_name").value = scheduleDetails.course.course_name;
+                document.getElementById("start_time").value = scheduleDetails.start_time;
+                document.getElementById("end_time").value = scheduleDetails.end_time;
+                document.getElementById("teacher_id").value = scheduleDetails.teacher_id;
+                document.getElementById("teacher_name").value = scheduleDetails.teacher.name;
+                document.getElementById("class_day").value = scheduleDetails.class_day;
+                document.getElementById("fees").value = scheduleDetails.course.fees;
+                // Add other text fields as needed
+            }
+        };
+        xhr.send();
+    }
+</script>
+</body>
+</html>

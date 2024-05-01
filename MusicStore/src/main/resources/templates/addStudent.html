@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Add Student</title>
+</head>
+<body>
+<!-- Header -->
+<div th:insert= "fragments/nav :: head"></div>
+<div th:insert= "fragments/nav :: header"></div>
+<!-- End Header -->
+<!-- Container -->
+<div id="container">
+  <div class="shell">
+    <!-- Small Nav -->
+    <div class="small-nav"> <a href="show_students">Students</a> <span>&gt;</span> Add Student </div>
+    <!-- End Small Nav -->
+    <br />
+    <!-- Main -->
+    <div id="main">
+      <div class="cl">&nbsp;</div>
+      <!-- Content -->
+      <div id="content">
+        <!-- Box -->
+        <div class="box">
+          <!-- Box Head -->
+          <div class="box-head">
+            <h2 class="left">Add Student</h2>
+          </div>
+          <!-- End Box Head -->
+          
+           <form  th:action="@{/savestudent}" method="post"  id="details" onsubmit="return validate()">
+            <!-- Form -->
+            <div class="form">
+              <p> 
+                <label>Student Name<span>(Name Required)</span></label>
+                <input type="text" name="name" class="field size1" th:required />
+              </p>
+               <p>
+                <label>Email</label>
+                <input type="text" name="email" class="field size1" th:required />
+              </p>
+               <p>
+                <label>Phone Number</label>
+                <input type="text" name="phone_number" class="field size1" th:required />
+              </p>
+              <p>
+                <label>Address</label>
+                <input type="text" name="address" class="field size1" th:required />
+              </p>
+               <p>
+                <label>Instrument Preferences</label>
+                <input type="text" name="instrument_preferences" class="field size1" th:required />
+              </p>
+              <p class="inline-field">
+               <label for="schedule_id">Schedule</label>
+                <select id="schedule_id" name="schedule_id" class="field size1"  onchange="getScheduleDetails()" >
+                <option value="">Select Schedule</option>
+                <option th:each="sc :${schedule}" th:value="${sc.schedule_id}" th:text="${sc.schedule_name}">
+                </option>
+               </select>
+               </p>
+                <p>
+                <label>Course</label>
+                <input type="text" id="course_name" name="course_name" class="field size1" th:readonly="true"/>
+                <input type="text" id="course_id" name="course_id" class="field size1" th:readonly="true"/>
+             	 </p>
+             	 <p>
+             	 <label>Start Time</label>
+                <input type="text" id="start_time" name="start_time" class="field size1" th:readonly="true" />
+             	 </p>
+             	  <p>
+             	 <label>End Time</label>
+                <input type="text" id="end_time" name="end_time" class="field size1" th:readonly="true" />
+             	 </p>
+             	  <p>
+             	 <label>Teacher ID</label>
+                <input type="text" id="teacher_name" name="teacher_name" class="field size1" th:readonly="true"/>
+                <input type="text" id="teacher_id" name="teacher_id" class="field size1" th:readonly="true"/>
+             	 </p>
+             	  <p>
+             	 <label>Class Day</label>
+                <input type="text" id="class_day" name="class_day" class="field size1" th:readonly="true" />
+             	 </p>
+             	 <p>
+             	  <label>Fees</label>
+                <input type="text" id="fees" name="amount" class="field size1" th:readonly="true" />
+             	 </p>
+             	 <p>
+             	<label>Payment Date</label>
+                <input type="text" id="payment_date" name="payment_date" class="field size1" th:readonly="true" />
+             	 </p>
+                <input type="hidden" id="payment_status" name="payment_status" value="Pending" class="field size1" />
+                <input type="hidden" id="enroll" name="enroll" value="No" class="field size1" />
+             	 
+
+               				<div id="scheduleDetails" >
+    						<!-- Schedule details will be displayed here -->
+							</div>
+              
+            </div>
+           
+            <!-- End Form -->
+            <!-- Form Buttons -->
+            <div class="buttons">
+            <input type="reset" class="button" value="reset" />
+              <input type="submit" class="button" value="submit" />
+            </div>
+            <!-- End Form Buttons -->
+          </form>
+          <!-- Table -->
+        </div>
+        <!-- End Box -->
+      </div>
+      <!-- End Content -->
+      
+      <div class="cl">&nbsp;</div>
+    </div>
+    <!-- Main -->
+  </div>
+</div>
+<script>
+document.getElementById("details").addEventListener("reset", function() {
+    // Clear the content of the "scheduleDetails" div
+    document.getElementById("scheduleDetails").innerHTML = "";
+});
+
+function validate() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone_number = document.getElementById("phone_number").value;
+    var address = document.getElementById("address").value;
+    var instrument_preferences = document.getElementById("instrument_preferences").value;
+    var schedule_id = document.getElementById("schedule_id").value;
+
+    // Validate input fields
+    if (name.trim() == "" || email.trim() == "" || phone_number.trim() == "" || address.trim() == "" || instrument_preferences.trim() == "" || schedule_id.trim() == "") {
+        alert("Please fill in all required fields.");
+        return false; 
+    }
+    
+    // If all fields are filled, return true to allow form submission
+    return true;
+}
+
+
+function getScheduleDetails() {
+	
+    var scheduleId = document.getElementById("schedule_id").value;
+    if (scheduleId === "") {
+        // Clear the content of the text fields
+        document.getElementById("course_id").value = "";
+        document.getElementById("start_time").value = "";
+        document.getElementById("end_time").value = "";
+        document.getElementById("teacher_id").value = "";
+        document.getElementById("class_day").value = "";
+        return; // Exit the function early
+    }
+    // Make AJAX request to fetch schedule details
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/getScheduleDetails/" + scheduleId);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var scheduleDetails = JSON.parse(xhr.responseText);
+            
+            // Update text fields with schedule details
+            document.getElementById("course_id").value = scheduleDetails.course_id;
+            document.getElementById("course_name").value = scheduleDetails.course.course_name;
+            document.getElementById("start_time").value = scheduleDetails.start_time;
+            document.getElementById("end_time").value = scheduleDetails.end_time;
+            document.getElementById("teacher_id").value = scheduleDetails.teacher_id;
+            document.getElementById("teacher_name").value = scheduleDetails.teacher.name;
+            document.getElementById("class_day").value = scheduleDetails.class_day;
+            document.getElementById("fees").value = scheduleDetails.course.fees;
+            // Add other text fields as needed
+        }
+    };
+    xhr.send();
+   
+}
+
+window.onload = function() {
+    // Get the current date
+    var currentDate = new Date();
+    
+    // Format the date as YYYY-MM-DD (which is the format expected by input type="date")
+    var formattedDate = currentDate.toISOString().split('T')[0];
+    
+    // Set the value of the payment_date input field
+    document.getElementById("payment_date").value = formattedDate;
+};
+</script>
+<!-- End Container -->
+<!-- Footer -->
+<div th:insert= "fragments/nav :: footer"></div>
+<!-- End Footer -->
+</body>
+</html>

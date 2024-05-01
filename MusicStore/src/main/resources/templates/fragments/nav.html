@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymleaf.com">
+<head>
+<meta charset="UTF-8">
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/dashboardcss.css" type="text/css"
+	media="all" />
+<link rel="stylesheet" href="../css/dashboardcss.css" type="text/css"
+	media="all" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="js/script.js"></script>
+
+<title></title>
+</head>
+<body>
+	
+
+	<div id="header" th:fragment="header">
+		<div class="shell">
+			<!-- Logo + Top Nav -->
+			<div id="top">
+				<h1>
+					<a href="#">Xian Music Academy</a>
+				</h1>
+				<div id="top-navigation">
+					Welcome <a href="#"><strong><span
+							th:text="${usernames}"></span></strong></a> 
+					<span>|</span> <a href="#">Profile Settings</a> <span>|</span> <a
+						href="#">Log out</a>
+				</div>
+			</div>
+			<!-- End Logo + Top Nav -->
+			<!-- Main Nav -->
+			<div th:insert="fragments/nav :: nav"></div>
+			<!-- End Main Nav -->
+		</div>
+	</div>
+	
+	
+	<div id="navigation" th:fragment="nav">
+		<ul>
+			<li><a href="dash_board" class="btn"><span>Dashboard</span></a></li>
+			<li><a href="show_students" class="btn"><span>Student</span></a></li>
+			<li><a href="show_course" class="btn"><span>Course</span></a></li>
+			<li><a href="attendence" class="btn"><span>Attendence</span></a></li>
+			<li><a href="show_billing" class="btn"><span>Billing</span></a></li>
+			<li><a href="#" class="btn"><span>Performance</span></a></li>
+			<li><a href="show_teacher" class="btn"><span>Teacher</span></a></li>
+			<li><a href="teacher_schedule" class="btn"><span>Teacher
+						Schedule</span></a></li>
+		</ul>
+	</div>
+	<div th:fragment="footer">
+		<div id="footer">
+			<div class="shell">
+				<span class="left">&copy; 2024 - Xian Dulcimer Culture</span>
+			</div>
+		</div>
+	</div>
+	<script>
+ // Add active class to the current button (highlight it)
+var header = document.getElementById("myDIV");
+var btns = header.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  if (current.length > 0) { 
+    current[0].className = current[0].className.replace(" active", "");
+  }
+  this.className += " active";
+  });
+}
+</script>
+</body>
+</html>

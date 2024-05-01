@@ -1,0 +1,85 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>SpringTime</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="#">Dashboard</a> <span>&gt;</span> Edit Course
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Edit Course</h2>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+						
+							<form th:action="@{/savecourse}" method="post"
+								th:object="${course}">
+								<input type="hidden" name="course_id"
+									th:value="${course.course_id}" />
+									<div class="form">
+									<p class="inline-field">
+										<label for="email">Course Name</label> <input type="text" id="course_name"
+											name="course_name" class="field size1" th:value="${course.course_name}" />
+									</p>
+								
+								<p class="inline-field">
+									<label for="description">Description</label> <input name="description"
+										type="text" class="field size1" th:value="${course.description}"/>
+										</p>
+								<p class="inline-field">
+									<label for="duration">Duration</label> <input name="duration"
+										type="text" class="field size1" th:value="${course.duration}"/>
+								</p>
+								<p class="inline-field">
+									<label for="fees">Fees</label> <input name="fees" type="text"
+										class="field size1" th:value="${course.fees}"/>
+								</p>
+								</div>
+								<div class="buttons">
+								<input type="submit" class="button" value="submit" />
+								</div>
+							</form>
+
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+					<!-- Box -->
+
+					<!-- End Box -->
+				</div>
+				<!-- End Content -->
+
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+	<!-- End Container -->
+	<!-- Footer -->
+<div th:insert= "fragments/nav :: footer"></div>
+<!-- End Footer -->
+</body>
+</html>

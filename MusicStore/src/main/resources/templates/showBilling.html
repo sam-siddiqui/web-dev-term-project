@@ -1,0 +1,90 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Billing</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="#">Dashboard</a> <span>&gt; <a
+					href="show_paidbilling">Paid Bill</a></span>
+			</div>
+			<!-- End Small Nav -->
+
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Current Bills</h2>
+							<div class="right">
+								<form id="searchForm" th:action="@{/searchbilling}">
+									<label>Search Bill</label> <input type="text"
+										name="bill_keyword" id="bill_keyword"
+										th:value="${bill_keyword}" required onkeypress="search(event)" />
+									<input type="submit" class="button" value="search" /> <input
+										type="reset" class="button" onclick="clearSearch()"
+										value="clear" />
+								</form>
+							</div>
+						</div>
+
+						<!-- End Box Head -->
+						<!-- Table -->
+						<div class="table">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th>ID</th>
+									<th>Student ID</th>
+									<th>Name</th>
+									<th>Amount</th>
+									<th>Date</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+								<tbody>
+									<tr th:each="b :${billing}">
+										<td th:text="${b.billing_id}"></td>
+										<td th:text="${b.student_id}"></td>
+										<td th:text="${b.student.name}"></td>
+										<td th:text="${b.amount}"></td>
+										<td th:text="${b.payment_date}"></td>
+										<td th:text="${b.payment_status}"></td>
+										<td><a th:href="@{/payBilling/{id}(id=${b.billing_id})}"
+											class="ico del">Pay Bill</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+				</div>
+			</div>
+			<!-- End Container -->
+
+			<div class="cl">&nbsp;</div>
+		</div>
+		<!-- Main -->
+	</div>
+
+
+	<!-- End Container -->
+	<!-- Footer -->
+	<div th:insert="fragments/nav :: footer"></div>
+</body>
+</html>

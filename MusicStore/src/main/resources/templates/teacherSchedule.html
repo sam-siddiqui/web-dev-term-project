@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>SpringTime</title>
+</head>
+<body>
+	<!-- Header -->
+		<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+
+			<div class="small-nav">
+				<a href="dash_board">Dashboard</a> <span>&gt;</span> <a
+					href="add_schedule">Add Schedule</a>
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Teacher Schedule</h2>
+						</div>
+						<div class="table">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th>ID</th>
+									<th>Teacher</th>
+									<th>Course</th>
+									<th>Class day</th>
+									<th>Start Time</th>
+									<th>End Time</th>
+									<th>Actions</th>
+								</tr>
+								<tr th:each="ts :${schedule}">
+									<td th:text="${ts.schedule_id}"></td>
+									<td th:text="${ts.teacher.name}"></td>
+									<td th:text="${ts.course.course_name}"></td>
+									<td th:text="${ts.class_day}"></td>
+									<td th:text="${ts.start_time}"></td>
+									<td th:text="${ts.end_time}"></td>
+									<td><a
+										th:href="@{/deleteSchedule/{id}(id=${ts.schedule_id})}"><i
+											class="fa-solid fa-trash"></i></a> <a
+										th:href="@{/editSchedule/{id}(id=${ts.schedule_id})}"><i
+											class="fa-solid fa-pen-to-square ms-4"></i></a></td>
+								</tr>
+							</table>
+							
+						</div>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+
+				</div>
+				<!-- End Content -->
+
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+
+	<!-- End Container -->
+	<!-- Footer -->
+<div th:insert= "fragments/nav :: footer"></div>
+<!-- End Footer -->
+</body>
+</html>
