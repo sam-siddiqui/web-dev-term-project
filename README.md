@@ -1,6 +1,8 @@
 ## COMP 6000 Term Project
 ### Spring 2024
+[**Click here to Watch the Video !!!!!!**](https://drive.google.com/file/d/1VzCrQQP070nTUA4kka2Day6s2siYIBQT/view)
 ________________________________________
+
 ### Music CRM Website
 End to End student and classes management system for a music educational institution.
 ### Built using
