@@ -1,0 +1,137 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>Check Attendance</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="#">Dashboard</a> <span>&gt;<a
+					href="check_attendance">Check Attendance</a>
+			</div>
+			<!-- End Small Nav -->
+
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Attendance Check</h2>
+						</div>
+						<!-- End Box Head -->
+						<!-- Table -->
+
+						<form th:action="@{/saveattendance}" method="post">
+							<!-- Form -->
+							<div class="form">
+								<p>
+									<label for="name">Student Name</label> <select id="student_id"
+										name="student_id" class="field size1"
+										onchange="getStudentDetails()">
+										<option value="">Select Student</option>
+										<option th:each="s :${student}" th:value="${s.student_id}"
+											th:text="${s.name}"></option>
+									</select>
+								</p>
+								<table id="attendanceTable" class="table">
+    <thead>
+        <tr>
+            <th>Attendance ID</th>
+            <th>Student ID</th>
+            <th>Schedule ID</th>
+            <th>Date</th>
+            <th>Status</th>
+            <!-- Add more table headers as needed -->
+        </tr>
+    </thead>
+    <tbody id="attendanceTableBody">
+        <!-- Table body will be populated dynamically -->
+    </tbody>
+</table>
+							</div>
+							<!-- End Form -->
+							<!-- Form Buttons -->
+							<div class="buttons">
+								<input type="submit" class="button" value="submit" />
+							</div>
+						</form>
+						<!-- End Form Buttons -->
+
+						<!-- Table -->
+
+					</div>
+					<!-- Table -->
+				</div>
+				<!-- End Box -->
+			</div>
+		</div>
+		<!-- End Container -->
+
+		<div class="cl">&nbsp;</div>
+	</div>
+	<!-- Main -->
+
+
+	<!-- End Container -->
+	<!-- Footer -->
+	<div th:insert="fragments/nav :: footer"></div>
+<script>
+function getAttendanceDetails() {
+    var studentId = document.getElementById("student_id").value;
+    if (studentId !== "") {
+        // Make AJAX request to fetch attendance details based on selected studentId
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getAttendanceDetails/" + studentId, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Parse JSON response and update table
+                    var attendanceDetails = JSON.parse(xhr.responseText);
+                    populateAttendanceTable(attendanceDetails);
+                } else {
+                    console.error("Error fetching attendance details: " + xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    }
+}
+
+function populateAttendanceTable(attendanceDetails) {
+    var tableBody = document.getElementById("attendanceTableBody");
+    tableBody.innerHTML = ""; // Clear existing table body
+
+    attendanceDetails.forEach(function(attendance) {
+        var row = tableBody.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        // Add more cells as needed
+        
+        cell1.innerHTML = attendance.attendanceId;
+        cell2.innerHTML = attendance.studentId;
+        cell3.innerHTML = attendance.scheduleId;
+        cell4.innerHTML = attendance.date;
+        cell5.innerHTML = attendance.status;
+        // Populate additional cells with corresponding data
+    });
+}
+</script>
+</body>
+</html>

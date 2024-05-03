@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymleaf.com">
+<head>
+<title>SpringTime</title>
+</head>
+<body>
+	<!-- Header -->
+	<div th:insert="fragments/nav :: head"></div>
+	<div th:insert="fragments/nav :: header"></div>
+	<!-- End Header -->
+	<!-- Container -->
+	<div id="container">
+		<div class="shell">
+			<!-- Small Nav -->
+			<div class="small-nav">
+				<a href="show_billing">Billing</a> <span>&gt;</span> Add Billing
+			</div>
+			<!-- End Small Nav -->
+			<br />
+			<!-- Main -->
+			<div id="main">
+				<div class="cl">&nbsp;</div>
+				<!-- Content -->
+				<div id="content">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2 class="left">Add Billing</h2>
+						</div>
+						<!-- End Box Head -->
+
+						<form th:action="@{/savebilling}" method="post" id="details">
+							<!-- Form -->
+							<div class="form">
+								<p>
+									<label for="name">Student Name</label> <select id="student_id"
+										name="student_id" class="field size1">
+										<option value="">Select Option</option>
+										<option th:each="s :${student}" th:value="${s.student_id}"
+											th:text="${s.name}"></option>
+									</select>
+								</p>
+								<p>
+									<label>Amount</label> <input type="text" name="amount"
+										class="field size1" />
+								</p>
+								<p>
+									<label>Payment Date</label> <input type="date"
+										name="payment_date" class="field size1" />
+								</p>
+								<p>
+									<label for="name">Payment Status</label> <select
+										id="payment_status" name="payment_status" class="field size1">
+										<option value="">Select Option</option>
+										<option value="Paid">Paid</option>
+										<option value="Unpaid">Unpaid</option>
+									</select>
+								</p>
+							</div>
+							<!-- End Form -->
+							<!-- Form Buttons -->
+							<div class="buttons">
+								<input type="reset" class="button" value="reset" /> <input
+									type="submit" class="button" value="submit" />
+							</div>
+							<!-- End Form Buttons -->
+						</form>
+						<!-- Table -->
+					</div>
+					<!-- End Box -->
+				</div>
+				<!-- End Content -->
+				<!-- Sidebar -->
+				<div id="sidebar">
+					<!-- Box -->
+					<div class="box">
+						<!-- Box Head -->
+						<div class="box-head">
+							<h2>Management</h2>
+						</div>
+						<!-- End Box Head-->
+						<div class="box-content">
+							<a href="#" class="add-button"><span>Add new Article</span></a>
+							<div class="cl">&nbsp;</div>
+							<p class="select-all">
+								<input type="checkbox" class="checkbox" /> <label>select
+									all</label>
+							</p>
+							<p>
+								<a href="#">Delete Selected</a>
+							</p>
+							<!-- Sort -->
+							<div class="sort">
+								<label>Sort by</label> <select class="field">
+									<option value="">Title</option>
+								</select> <select class="field">
+									<option value="">Date</option>
+								</select> <select class="field">
+									<option value="">Author</option>
+								</select>
+							</div>
+							<!-- End Sort -->
+						</div>
+					</div>
+					<!-- End Box -->
+				</div>
+				<!-- End Sidebar -->
+				<div class="cl">&nbsp;</div>
+			</div>
+			<!-- Main -->
+		</div>
+	</div>
+	<script th:inline="javascript">
+document.getElementById("details").addEventListener("reset", function() {
+    // Clear the content of the "scheduleDetails" div
+    document.getElementById("scheduleDetails").innerHTML = "";
+});
+    function getScheduleDetails() {
+        var scheduleId = document.getElementById("schedule_id").value;
+        if (scheduleId === "") {
+            // Clear the content of the "scheduleDetails" div
+            document.getElementById("scheduleDetails").innerHTML = "";
+            return; // Exit the function early
+        }
+        // Make AJAX request to fetch schedule details
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/getScheduleDetails/" + scheduleId);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var scheduleDetails = JSON.parse(xhr.responseText);
+                
+                // Update DOM with schedule details
+                document.getElementById("scheduleDetails").innerHTML = "Course ID: " + scheduleDetails.course_id + "<br>"
+                                                                    + "Start Time: " + scheduleDetails.start_time + "<br>"
+                                                                    + "End Time: " + scheduleDetails.end_time + "<br>"
+                                                                    + "Teacher Id: " + scheduleDetails.teacher_id + "<br>"
+                                                                    + "Class Day: " + scheduleDetails.class_day; // Add other columns as needed
+            }
+        };
+        xhr.send();
+    }
+</script>
+	<script th:inline="javascript">
+function populateScheduleDetails() {
+    var scheduleId = document.getElementById("schedule_id").value;
+    fetch("/api/schedule/" + scheduleId)
+        .then(response => response.json())
+        .then(schedule => {
+            document.getElementById("courseid").value = schedule.course_id;
+            document.getElementById("starttime").value = schedule.start_time;
+        })
+        .catch(error => console.error('Error:', error));
+}
+function updateForm() {
+	var scheduleId = document.getElementById("schedule_id").value;
+    
+    // Make AJAX request to fetch schedule details
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/getScheduleDetails/" + scheduleId);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var scheduleDetails = JSON.parse(xhr.responseText);
+            document.getElementById("course_id").value = data.course_id;
+            document.getElementById("start_time").value = data.start_time;
+            document.getElementById("end_time").value = data.end_time;
+            document.getElementById("teacher_id").value = data.teacher_id;
+            document.getElementById("class_day").value = data.class_day;
+        }
+    };
+    xhr.send();
+}
+</script>
+	<!-- End Container -->
+	<!-- Footer -->
+	<div th:insert="fragments/nav :: footer"></div>
+	<!-- End Footer -->
+</body>
+</html>

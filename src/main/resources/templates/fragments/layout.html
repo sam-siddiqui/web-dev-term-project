@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="userdetails">
+		<div id="top-navigation">
+			Welcome <a href="#"><strong><span th:text="${usernames}"></span></strong></a>
+			<span>|</span> <a href="#">Help</a> <span>|</span> <a href="#">Profile
+				Settings</a> <span>|</span> <a href="#">Log out</a>
+		</div>
+	</div>
+	<div th:replace="~{::content}"></div>
+</body>
+</html>

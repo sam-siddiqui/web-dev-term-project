@@ -1,0 +1,144 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymleaf.com">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<!-- Header -->
+<div th:insert="fragments/nav :: head"></div>
+<div th:insert="fragments/nav :: header"></div>
+<!-- End Header -->
+<!-- Container -->
+<div id="container">
+    <div class="shell">
+        <!-- Small Nav -->
+        <div class="small-nav">
+            <a href="/dash_board">Dashboard</a>
+            > <a href="#"><span>All Users</span></a>
+            > <a href="/addUser"><span>Add User</span></a>
+        </div>
+        <!-- End Small Nav -->
+
+        <br />
+        <!-- Main -->
+        <div id="main">
+            <div class="cl">&nbsp;</div>
+            <!-- Content -->
+            <div id="content">
+                <!-- Box -->
+                <div class="box">
+                    <!-- Box Head -->
+                    <div class="box-head">
+                        <h2 class="left">Current Users</h2>
+                        <div class="right">
+                            <form id="searchForm" action="#" th:action="@{/searchUsers}">
+                                <label for="keyword">Search articles:</label> <input
+                                    type="text" name="keyword" id="keyword" th:value="${keyword}"
+                                    required />
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End Box Head -->
+                    <!-- Table -->
+                    <div class="table" style=" max-height: 60vh; overflow-y: auto; ">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th>ID</th>
+                                <th>User Type</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr th:each="t :${allUsers}"
+                                th:if="${t.id != currentAdminID}">
+                                <td th:text="${t.id}"></td>
+                                <td th:switch="${t.usercontrol}">
+                                    <span th:case="1">Admin</span>
+                                    <span th:case="2">Teacher</span>
+                                    <span th:case="3">Student</span>
+                                </td>
+                                <td th:text="${t.firstName}"></td>
+                                <td th:text="${t.lastName}"></td>
+                                <td th:text="${t.email}"></td>
+                                <td th:text="${t.password}"></td>
+                                <td th:switch="${t.usercontrol}">
+                                    <div th:case="0">
+                                        <a th:href="@{/deleteUser/{id}(id=${t.id})}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                        <a th:href="@{/editUser/{id}(id=${t.id})}"><i
+                                                class="fa-solid fa-pen-to-square ms-4"></i>
+                                        </a>
+                                    </div>
+                                    <div th:case="2">
+                                        <a th:href="@{/deleteUser/{id}(id=${t.id})}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                        <a th:href="@{/editUser/{id}(id=${t.id})}"><i
+                                                class="fa-solid fa-pen-to-square ms-4"></i>
+                                        </a>
+                                    </div>
+                                    <div th:case="3">
+                                        <a th:href="@{/deleteUser/{id}(id=${t.id})}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                        <a th:href="@{/editUser/{id}(id=${t.id})}"><i
+                                                class="fa-solid fa-pen-to-square ms-4"></i>
+                                        </a>
+                                    </div>
+                                    <div th:case="1">
+                                        <a th:href="@{/editUser/{id}(id=${t.id})}"><i
+                                                class="fa-solid fa-pen-to-square ms-4"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Table -->
+                </div>
+                <!-- End Box -->
+            </div>
+        </div>
+        <!-- End Container -->
+
+        <div class="cl">&nbsp;</div>
+    </div>
+    <!-- Main -->
+</div>
+
+
+<!-- End Container -->
+<!-- Footer -->
+<div th:insert="fragments/nav :: footer"></div>
+<script>
+    // Get the input field
+    var input = document.getElementById("keyword");
+
+    // Add event listener on input event (fires on every keystroke)
+    input.addEventListener("input", function(event) {
+        // Perform search action
+        search();
+    });
+
+    // Function to perform search
+    function search() {
+        var keyword = input.value;
+        // You can perform any search action here using AJAX or other methods
+        // For demonstration purposes, let's just log the search keyword
+        console.log('Searching for: ' + keyword);
+        // You can also update the UI to display search results dynamically
+        // For example:
+        // document.getElementById('searchResults').innerText = 'Searching for: ' + keyword;
+
+        // Submit the form programmatically
+        document.getElementById('searchForm').submit();
+    }
+</script>
+
+</body>
+</html>
