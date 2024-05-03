@@ -1,6 +1,6 @@
 ## COMP 6000 Term Project
 ### Spring 2024
-[**Click here to Watch the Video !!!!!!**](https://drive.google.com/file/d/1VzCrQQP070nTUA4kka2Day6s2siYIBQT/view)
+[**Click here to Watch the Video !!!!!!**](https://www.youtube.com/watch?v=nJscRBlCB98)
 ________________________________________
 
 ### Music CRM Website
